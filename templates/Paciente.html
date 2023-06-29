@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/41bcea2ae3.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <title>Página Web Médica</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/valores.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css"
+    />
+
+    <style>
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 34vh;
+      }
+
+      .content {
+        text-align: center;
+        max-width: 600px;
+        margin: 5px auto 0;
+      }
+
+      .content img {
+        max-width: 60%;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+      }
+
+      .content .small-image {
+        max-width: 30%;
+        height: auto;
+        display: block;
+        margin: 10px auto;
+      }
+
+      .search-bar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1rem;
+      }
+
+      .search-bar input {
+        width: 300px;
+        padding: 0.5rem;
+        border-radius: 4px;
+        border: none;
+        outline: none;
+      }
+
+      .search-bar button {
+        padding: 0.5rem 1rem;
+        background-color: #457b9d;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        margin-left: 0.5rem;
+        cursor: pointer;
+      }
+
+      .patients-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 2rem;
+      }
+
+      .patients-table th,
+      .patients-table td {
+        padding: 0.75rem;
+        text-align: left;
+        border-bottom: 1px solid #dee2e6;
+      }
+
+      .patients-table th {
+        background-color: #D0ECE7;
+        color: #fff;
+      }
+
+      .patients-table tr:nth-child(even) {
+        background-color: #cce5ff;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <!-- Columna 1 -->
+      <div class="sub-column-1">
+        <div class="menu__side" id="menu_side">
+          <div class="name__page">
+            <i class="fas fa-first-aid fa-lg"></i>
+          </div>
+
+          <div class="options__menu">
+            <a href="{{ url_for('valores') }}">
+              <div class="option">
+                <i class="fas fa-home" title="Inicio"></i>
+                <h4>Inicio</h4>
+              </div>
+            </a>
+            <a href="{{ url_for('Paciente') }}" class="selected">
+              <div class="option">
+                <i class="fas fa-user-injured" title="Pacientes"></i>
+              </div>
+            </a>
+            <a href="{{ url_for('Historial') }}">
+              <div class="option">
+                <i class="fas fa-file-medical" title="Historial Medico"></i>
+              </div>
+            </a>
+            <a href="{{ url_for('Apuntes') }}">
+              <div class="option">
+                <i class="far fa-sticky-note" title="Apuntes medicos"></i>
+              </div>
+            </a>
+            <a href="{{ url_for('contacto') }}">
+              <div class="option">
+                <i class="far fa-id-badge" title="Contacto"></i>
+              </div>
+            </a>
+            <a href="{{ url_for('Desarrollado') }}">
+              <div class="option">
+                <i class="fas fa-cogs" title="Desarrollado"></i>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="content">
+        <h2>Lista de Pacientes</h2>
+
+        <div class="search-bar">
+          <input type="text" name="busqueda" placeholder="Buscar paciente" />
+          <button type="submit" class="button is-primary">Buscar</button>
+        </div>
+
+        <table class="patients-table">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Edad</th>
+              <th>Género</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for paciente in pacientes %}
+            <tr>
+              <td>{{ paciente.nombre }}</td>
+              <td>{{ paciente.edad }}</td>
+              <td>{{ paciente.genero }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

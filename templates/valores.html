@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/41bcea2ae3.js"
+      crossorigin="anonymous"
+    ></script>
+    <title>Página Web Médica</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/valores.css') }}"
+    />
+  </head>
+
+  <body>
+    <div class="container">
+      <!-- Columna 1 -->
+      <body id="body">
+        <div class="sub-column-1">
+          <div class="menu__side" id="menu_side">
+            
+            <div class="name__page">
+              
+              <i class="fas fa-first-aid fa-lg"></i>
+            </div>
+
+            <div class="options__menu">
+              <a href="{{ url_for('mostrar_valores') }}" class="selected">
+                <div class="option">
+                  <i class="fas fa-home" title="Inicio"></i>
+                  <h4>Inicio</h4>
+                </div>
+              </a>
+              <a href="{{ url_for('Paciente') }}">
+                <div class="option">
+                  <i class="fas fa-user-injured" title="Pacientes"></i>
+                  
+                </div>
+              </a>
+              <a href="{{ url_for('Historial') }}">
+                <div class="option">
+                  <i class="fas fa-file-medical" title="Historial Medico"></i>
+                  
+                </div>
+              </a>
+              <a href="{{ url_for('Apuntes') }}">
+                <div class="option">
+                  <i class="far fa-sticky-note" title="Apuntes medicos"></i>
+                  
+                </div>
+              </a>
+              <a href="{{ url_for('contacto') }}">
+                <div class="option">
+                  <i class="far fa-id-badge" title="Contacto"></i>
+                  
+                </div>
+              </a>
+              <a href="{{ url_for('Desarrollado') }}">
+                <div class="option">
+                  <i class="fas fa-cogs" title="Desarrollado"></i>
+                  
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </body>
+
+      <div class="sub-column-2">
+        <!-- Columna 2 -->
+        <div>
+          <h2>Ingresar nombre de paciente</h2>
+          <input
+            type="text"
+            id="nombre-paciente"
+            placeholder="Ingrese el nombre"
+          />
+          <input type="submit" value="Consultar" onclick="mostrarPopup()" />
+        </div>
+      </div>
+
+      <!-- Columna 2 -->
+      <div class="columna">
+        <!-- Fila 1 -->
+        <div>
+          <h2>Resultados del paciente</h2>
+          <div class="card">
+            <div class="sensor">
+              <p class="label">Saturacion de oxigeno:</p>
+              <p class="value" id="temperature">Cargando SpO2...</p>
+            </div>
+            <div class="sensor">
+              <p class="label">Heart Rate:</p>
+              <p class="value" id="humidity">Cargando HR...</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fila 2 -->
+        <div>
+          
+          <div id="pulse-graph" style="width: 650px; height: 450px"></div>
+        </div>
+      </div>
+
+      <!-- Columna 3 -->
+      <div class="columna">
+        <!-- Aquí puedes agregar elementos según tus necesidades -->
+
+        <h1>Información del Paciente:</h1>
+
+        <body>
+          <table id="t1">
+            <tr>
+              <!--1 y 2 segunda columna de la 1 fila-->
+              <td><p class="value" id="i_d"></p></td>
+              <td><p class="value" id="I_D"></p></td>
+            </tr>
+            <tr>
+              <!--1 y 2 segunda columna de la 2 fila-->
+              <td><p class="value" id="Last"></p></td>
+              <td><p class="value" id="last"></p></td>
+            </tr>
+            <tr>
+              <!--1 y 2 segunda columna de la 3 fila-->
+              <td><p class="value" id="Family"></p></td>
+              <td><p class="value" id="family"></p></td>
+            </tr>
+            <tr>
+              <!--1 y 2 segunda columna de la 4 fila-->
+              <td><p class="value" id="Phone"></p></td>
+              <td><p class="value" id="phone"></p></td>
+            </tr>
+            <tr>
+              <!--1 y 2 segunda columna de la 5 fila-->
+              <td><p class="value" id="birthDate"></p></td>
+              <td><p class="value" id="birthdate"></p></td>
+            </tr>
+            <tr>
+              <!--1 y 2 segunda columna de la 6 fila-->
+              <td><p class="value" id="Email"></p></td>
+              <td><p class="value" id="email"></p></td>
+            </tr>
+            <tr>
+              <!--1 y 2 segunda columna de la 7 fila-->
+              <td><p class="value" id="Address"></p></td>
+              <td><p class="value" id="address"></p></td>
+            </tr>
+
+            <!-- Repite las filas restantes con el mismo patrón -->
+          </table>
+        </body>
+      </div>
+
+      <script
+        src="https://code.jquery.com/jquery-3.7.0.min.js"
+        integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
+        crossorigin="anonymous"
+      ></script>
+      <script
+        src="https://cdn.plot.ly/plotly-latest.min.js"
+        charset="utf-8"
+      ></script>
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.2/dist/sweetalert2.all.min.js"></script>
+      <script>
+        // Función para actualizar la gráfica
+        function updateGraph() {
+          $.get("/update_dash", function (data_update_dash) {
+            // Parsear los datos obtenidos como un objeto JSON
+            // Obtener los valores de pulso y tiempo
+            var pulseData = data_update_dash.pulse_data;
+            var timeData = data_update_dash.time_data;
+
+            var layout = {
+              title: "Heart Rate en tiempo real del paciente",
+              xaxis: { title: "Tiempo" },
+              yaxis: { title: "Hearth Rate" },
+            };
+            var trace = {
+              x: timeData,
+              y: pulseData,
+              mode: "lines",
+            };
+
+            // Actualizar la gráfica con los nuevos datos
+            Plotly.newPlot("pulse-graph", [trace], layout, {
+              displayModeBar: false,
+            });
+          });
+        }
+
+        // Actualizar la gráfica cada segundo
+        setInterval(updateGraph, 1000);
+      </script>
+
+      <script>
+        function update() {
+          $.get("/update", function (data) {
+            var values = data.split(",");
+            $("#humidity").html(values[0] +"  "+"BPM");
+            if (!(parseFloat(values[1]) >= 95 && parseFloat(values[1]) <= 100)) {
+              $("#temperature").html(values[1] + "%" + " " + "¡Paciente en Peligro!");
+            } 
+            else {
+              $("#humidity").html(values[1] + "%");
+            }
+          });
+        }
+
+        update();
+        var intervalId = setInterval(function () {
+          update();
+        }, 500);
+      </script>
+
+      <script>
+        $(document).ready(function () {
+          $.get("/update", function (data) {
+            var values = data.split(",");
+            var t = values[0]; // Obtén el valor de la variable desde la respuesta de la solicitud AJAX(bpm)
+            var h = values[1]; // Obtén el valor de la condición desde la respuesta de la solicitud AJAX(spo2)
+
+            // Realiza la condición en JavaScript
+            if (!(h >= 95 && h <= 100)) {
+              Swal.fire({
+                title: "¡Peligro!",
+                text: "Se registraron niveles debajo de lo normal de SpO2 del paciente",
+                icon: "warning",
+                confirmButtonText: "Aceptar",
+              });
+            }
+          });
+        });
+      </script>
+
+      <script>
+        // Función para mostrar el pop-up y abrir la ventana emergente
+        function mostrarPopup() {
+          // Abre una nueva ventana emergente
+          var nombre = document.getElementById("nombre-paciente").value;
+          // Abrir una nueva ventana emergente con el nombre como parámetro
+          window.open(
+            "/info_paciente?nombre=" + encodeURIComponent(nombre),
+            "_blank",
+            "width=500, height=500"
+          );
+        }
+      </script>
+      <script src="{{ url_for('static', filename='js/info.js') }}"></script>
+    </div>
+  </body>
+</html>

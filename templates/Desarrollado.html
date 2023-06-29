@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/41bcea2ae3.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <title>Página Web Médica</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/valores.css') }}"
+    />
+    <style>
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 34vh;
+      }
+
+      .content {
+        text-align: center;
+        max-width: 600px;
+        margin: 5px auto 0;
+      }
+
+      .content img {
+        max-width: 60%;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+      }
+
+      .content .small-image {
+        max-width: 30%;
+        height: auto;
+        display: block;
+        margin: 10px auto;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <!-- Columna 1 -->
+      <div class="sub-column-1">
+        <div class="menu__side" id="menu_side">
+          <div class="name__page">
+            <i class="fas fa-first-aid fa-lg"></i>
+          </div>
+
+          <div class="options__menu">
+            <a href="{{ url_for('valores') }}">
+              <div class="option">
+                <i class="fas fa-home" title="Inicio"></i>
+                <h4>Inicio</h4>
+              </div>
+            </a>
+            <a href="{{ url_for('Paciente') }}">
+              <div class="option">
+                <i class="fas fa-user-injured" title="Pacientes"></i>
+                
+              </div>
+            </a>
+            <a href="{{ url_for('Historial') }}">
+              <div class="option">
+                <i class="fas fa-file-medical" title="Historial Medico"></i>
+                
+              </div>
+            </a>
+            <a href="{{ url_for('Apuntes') }}">
+              <div class="option">
+                <i class="far fa-sticky-note" title="Apuntes medicos"></i>
+                
+              </div>
+            </a>
+            <a href="{{ url_for('contacto') }}">
+              <div class="option">
+                <i class="far fa-id-badge" title="Contacto"></i>
+                
+              </div>
+            </a>
+            <a href="{{ url_for('Desarrollado') }}" class="selected">
+              <div class="option">
+                <i class="fas fa-cogs" title="Desarrollado"></i>
+                
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Código agregado -->
+    <div class="container">
+      <div class="content">
+        <h1>Desarrollado en Flask junto con un servidor HAPI FHIR</h1>
+        <div>
+          <img
+            src="{{ url_for('static', filename='img/3407178_5bd8_3.jpg') }}"
+            alt="Imagen de Flask y HAPI FHIR"
+          />
+          <p>
+            Flask es un framework web ligero y flexible para Python que se
+            utiliza para desarrollar aplicaciones web. Proporciona herramientas
+            y bibliotecas para crear rápidamente aplicaciones web y APIs.
+          </p>
+          <p>
+            HAPI FHIR es una implementación en Java del estándar FHIR (Fast
+            Healthcare Interoperability Resources). FHIR es un estándar de datos
+            para el intercambio y la interoperabilidad de la información de
+            salud en el campo de la atención médica.
+          </p>
+          <img
+            src="{{ url_for('static', filename='img/D8TdDDWXUAED5ND.png') }}"
+            alt="Imagen de HAPI FHIR"
+            class="small-image"
+          />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
