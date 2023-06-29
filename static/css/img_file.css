@@ -1,0 +1,6 @@
+    .centered-image {
+    display: block;
+    margin: 0 auto; /* Centra horizontalmente la imagen */
+    max-width: 40%; /* Establece el ancho máximo deseado */
+    height: auto; /* Mantiene la proporción de aspecto */
+  }
