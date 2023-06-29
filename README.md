@@ -8,4 +8,6 @@ Por otro lado la web en flask se comunica con el servidor hapi fhir usando los v
 
 Si lo va usar, pruebe las conexiones entre el servidor y la web, compruebe que los request llegen al serivodr y que este responda para asi obtener los datos.
 
+Si tienen dudas, pueden contactarme a este correo: jmapcl185@gmail.com
+
 
