@@ -6,6 +6,6 @@ Configuren el Servidor HAPI-FHIR : https://github.com/hapifhir/hapi-fhir-jpaserv
 
 Por otro lado la web en flask se comunica con el servidor hapi fhir usando los verbos de hapi-fhir. La web es basica, toma los registros del paciente, despues se redirige a otro link donde se mostrara los datos obtenidos en el servidor hapi fhir, tambien se añadio una grafica en tiempo real del Heart Rate.
 
-Si lo va usar, compreube las conexiones entre el servidor y la web, compruebe que los request llegen al serivodr y que este responda para asi obtener los datos.
+Si lo va usar, pruebe las conexiones entre el servidor y la web, compruebe que los request llegen al serivodr y que este responda para asi obtener los datos.
 
 
